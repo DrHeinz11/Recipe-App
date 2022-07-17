@@ -26,9 +26,9 @@ function App() {
   }, []);
 
   return (
-    <Container>
+    <Container maxW="1200px" display="flex" flexWrap={"wrap"}>
       <Stack>
-        <Heading>Recipe Book</Heading>
+        <Heading textAlign="center">Recipe Book</Heading>
         <Text>Recetas de todo tipo y para todo tipo de gustos</Text>
       </Stack>
       {recipe?.map((element) => {
@@ -37,7 +37,6 @@ function App() {
             <Heading size="md">{element.strMeal}</Heading>
             <Image src={element.strMealThumb} boxSize="sm" />
             <Text textTransform="-moz-initial">{element.strInstructions}</Text>
-            
           </Stack>
         );
       })}
