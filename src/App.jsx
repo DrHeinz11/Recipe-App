@@ -1,4 +1,14 @@
-import { Container, Stack, Heading, Text, Image, Box } from "@chakra-ui/react";
+import {
+  Container,
+  Stack,
+  Heading,
+  Text,
+  Image,
+  Box,
+  Collapse,
+  useDisclosure,
+  Button,
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import CookieLogo from "./components/CookieLogo";
 
@@ -24,15 +34,23 @@ function App() {
     searchRecipe();
   }, []);
 
+  const { isOpen, onToggle } = useDisclosure();
+
   return (
     <Container
       maxW="1200px"
       display="flex"
       flexDirection="column"
       flexWrap={"wrap"}
+      padding="0"
     >
       <Stack align={"center"}>
-        <Heading display="flex" alignItems="center" gap="15px" textAlign="center">
+        <Heading
+          display="flex"
+          alignItems="center"
+          gap="15px"
+          textAlign="center"
+        >
           {" "}
           <CookieLogo />
           Recipe Book
@@ -42,7 +60,7 @@ function App() {
       <Stack
         direction="row"
         flexWrap="wrap"
-        justify={{ lg: "space-between", base: "center" }}
+        justify={{ base: "center" }}
         align="flex-start"
         gap="25px"
       >
@@ -62,9 +80,9 @@ function App() {
           return (
             <Stack
               maxW={"325px"}
-              margin="0"
               key={element.idMeal}
               alignItems="flex-start"
+              margin="0"
             >
               <Heading size="md">{element.strMeal}</Heading>
               <Image
@@ -87,42 +105,53 @@ function App() {
                 {element.strArea}
               </Text>
 
-              <Stack
-                direction="row"
-                justify="space-between"
-                gap={{ base: "10px", md: "15px", lg: "25px" }}
-              >
-                <Box>
-                  {ingredients?.map((e) => {
-                    if (e === "" || e === " ") {
-                      return;
-                    } else {
-                      return (
-                        <>
-                          <Text textTransform="capitalize" fontSize="md">
-                            {e}
-                          </Text>
-                        </>
-                      );
-                    }
-                  })}
-                </Box>
+              <Stack width="100%">
+                <Button onClick={onToggle}>Ingredients</Button>
+                <Collapse in={isOpen} animateOpacity>
+                  <Stack
+                    direction="row"
+                    justify="space-between"
+                    gap={{ base: "10px", md: "15px", lg: "25px" }}
+                    p="40px"
+                    color="white"
+                    bg="teal.500"
+                    rounded="md"
+                    shadow="md"
+                    width="100%"
+                  >
+                    <Box>
+                      {ingredients?.map((e) => {
+                        if (e === "" || e === " ") {
+                          return;
+                        } else {
+                          return (
+                            <>
+                              <Text textTransform="capitalize" fontSize="md">
+                                {e}
+                              </Text>
+                            </>
+                          );
+                        }
+                      })}
+                    </Box>
 
-                <Box>
-                  {measure?.map((e) => {
-                    if (e === "" || e === " ") {
-                      return;
-                    } else {
-                      return (
-                        <>
-                          <Text textTransform="-moz-initial" fontSize="md">
-                            {e}
-                          </Text>
-                        </>
-                      );
-                    }
-                  })}
-                </Box>
+                    <Box>
+                      {measure?.map((e) => {
+                        if (e === "" || e === " ") {
+                          return;
+                        } else {
+                          return (
+                            <>
+                              <Text textTransform="-moz-initial" fontSize="md">
+                                {e}
+                              </Text>
+                            </>
+                          );
+                        }
+                      })}
+                    </Box>
+                  </Stack>
+                </Collapse>
               </Stack>
             </Stack>
           );
