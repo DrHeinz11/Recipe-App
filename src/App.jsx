@@ -1,5 +1,6 @@
 import { Container, Stack, Heading, Text, Image, Box } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+import CookieLogo from "./components/CookieLogo";
 
 function App() {
   const API__URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
@@ -31,14 +32,18 @@ function App() {
       flexWrap={"wrap"}
     >
       <Stack align={"center"}>
-        <Heading textAlign="center">Recipe Book</Heading>
+        <Heading display="flex" alignItems="center" gap="15px" textAlign="center">
+          {" "}
+          <CookieLogo />
+          Recipe Book
+        </Heading>
         <Text>Recetas de todo tipo y para todo tipo de gustos</Text>
       </Stack>
       <Stack
         direction="row"
         flexWrap="wrap"
         justify={{ lg: "space-between", base: "center" }}
-        align="center"
+        align="flex-start"
         gap="25px"
       >
         {recipe?.map((element) => {
