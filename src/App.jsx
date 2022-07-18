@@ -1,5 +1,4 @@
-import { Container, Stack, Heading, Text, Image } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Container, Stack, Heading, Text, Image, Box } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -17,7 +16,7 @@ function App() {
     const response = await fetch(API__URL);
     const data = await response.json();
     setRecipe(data.meals);
-    console.log(data.meals);
+    // console.log(data.meals);
   };
 
   useEffect(() => {
@@ -43,19 +42,75 @@ function App() {
         gap="25px"
       >
         {recipe?.map((element) => {
-          console.log(element.strIngredient1)
+          const transform = Object.entries(element);
+          let ingredients = [];
+          let measure = [];
+          for (let index = 9; index <= 28; index++) {
+            ingredients.push(transform[index][1]);
+          }
+          for (let index = 29; index <= 48; index++) {
+            measure.push(transform[index][1]);
+          }
+
+          console.log(ingredients);
+          console.log(measure);
           return (
-            <Stack maxW={"325px"} margin="0" key={element.idMeal}>
+            <Stack
+              maxW={"325px"}
+              margin="0"
+              key={element.idMeal}
+              alignItems="flex-start"
+            >
               <Heading size="md">{element.strMeal}</Heading>
               <Image
                 objectFit={"contain"}
                 src={element.strMealThumb}
                 boxSize="sm"
               />
-              <Text textTransform="-moz-initial">{element.strTags}</Text>
-              <Text fontWeight={"semibold"} textTransform="-moz-initial">
+              <Text
+                fontSize="xl"
+                fontWeight="semibold"
+                textTransform="-moz-initial"
+              >
+                {element.strTags}
+              </Text>
+              <Text
+                fontWeight={"bold"}
+                fontSize="2xl"
+                textTransform="-moz-initial"
+              >
                 {element.strArea}
               </Text>
+
+              <Stack direction="row" justify="space-between">
+                <Box>
+                  {ingredients?.map((e) => {
+                    if (e === "" || e === " ") {
+                      return;
+                    } else {
+                      return (
+                        <>
+                          <Text fontSize="md">{e}</Text>
+                        </>
+                      );
+                    }
+                  })}
+                </Box>
+
+                <Box>
+                  {measure?.map((e) => {
+                    if (e === "" || e === " ") {
+                      return;
+                    } else {
+                      return (
+                        <>
+                          <Text fontSize="md">{e}</Text>
+                        </>
+                      );
+                    }
+                  })}
+                </Box>
+              </Stack>
             </Stack>
           );
         })}
