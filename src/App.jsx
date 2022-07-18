@@ -82,7 +82,11 @@ function App() {
                 {element.strArea}
               </Text>
 
-              <Stack direction="row" justify="space-between">
+              <Stack
+                direction="row"
+                justify="space-between"
+                gap={{ base: "10px", md: "15px", lg: "25px" }}
+              >
                 <Box>
                   {ingredients?.map((e) => {
                     if (e === "" || e === " ") {
@@ -90,7 +94,9 @@ function App() {
                     } else {
                       return (
                         <>
-                          <Text fontSize="md">{e}</Text>
+                          <Text textTransform="capitalize" fontSize="md">
+                            {e}
+                          </Text>
                         </>
                       );
                     }
@@ -104,7 +110,9 @@ function App() {
                     } else {
                       return (
                         <>
-                          <Text fontSize="md">{e}</Text>
+                          <Text textTransform="-moz-initial" fontSize="md">
+                            {e}
+                          </Text>
                         </>
                       );
                     }
