@@ -17,29 +17,49 @@ function App() {
     const response = await fetch(API__URL);
     const data = await response.json();
     setRecipe(data.meals);
-    console.log(data);
+    console.log(data.meals);
   };
 
   useEffect(() => {
     searchRecipe();
-    console.log(recipe);
   }, []);
 
   return (
-    <Container maxW="1200px" display="flex" flexWrap={"wrap"}>
-      <Stack>
+    <Container
+      maxW="1200px"
+      display="flex"
+      flexDirection="column"
+      flexWrap={"wrap"}
+    >
+      <Stack align={"center"}>
         <Heading textAlign="center">Recipe Book</Heading>
         <Text>Recetas de todo tipo y para todo tipo de gustos</Text>
       </Stack>
-      {recipe?.map((element) => {
-        return (
-          <Stack key={element.idMeal} margin="25px 0">
-            <Heading size="md">{element.strMeal}</Heading>
-            <Image src={element.strMealThumb} boxSize="sm" />
-            <Text textTransform="-moz-initial">{element.strInstructions}</Text>
-          </Stack>
-        );
-      })}
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        justify={{ lg: "space-between", base: "center" }}
+        align="center"
+        gap="25px"
+      >
+        {recipe?.map((element) => {
+          console.log(element.strIngredient1)
+          return (
+            <Stack maxW={"325px"} margin="0" key={element.idMeal}>
+              <Heading size="md">{element.strMeal}</Heading>
+              <Image
+                objectFit={"contain"}
+                src={element.strMealThumb}
+                boxSize="sm"
+              />
+              <Text textTransform="-moz-initial">{element.strTags}</Text>
+              <Text fontWeight={"semibold"} textTransform="-moz-initial">
+                {element.strArea}
+              </Text>
+            </Stack>
+          );
+        })}
+      </Stack>
     </Container>
   );
 }
