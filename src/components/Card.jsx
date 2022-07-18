@@ -24,7 +24,11 @@ export default function Card({ props }) {
   }
   const { isOpen, onToggle } = useDisclosure();
   return (
-    <Stack key={props.idMeal}>
+    <Stack
+      key={props.idMeal}
+      minH={{ lg: "565px", base: "400px" }}
+      justifyContent={"space-between"}
+    >
       <Heading>{props.strMeal}</Heading>
       <Image objectFit={"contain"} src={props.strMealThumb} boxSize="sm" />
       <Text fontSize="xl" fontWeight="semibold" textTransform="capitalize">

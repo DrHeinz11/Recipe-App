@@ -1,10 +1,4 @@
-import {
-  Container,
-  Stack,
-  Heading,
-  Text,
-
-} from "@chakra-ui/react";
+import { Container, Stack, Heading, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import CookieLogo from "./components/CookieLogo";
 import Card from "./components/Card";
@@ -31,8 +25,6 @@ function App() {
     searchRecipe();
   }, []);
 
-
-
   return (
     <Container
       maxW="1200px"
@@ -54,6 +46,7 @@ function App() {
         </Heading>
         <Text>Recetas de todo tipo y para todo tipo de gustos</Text>
       </Stack>
+
       <Stack
         direction="row"
         flexWrap="wrap"
