@@ -1,49 +1,89 @@
-import { Container, Stack, Heading, Text } from "@chakra-ui/react";
+import {
+  Container,
+  Stack,
+  Heading,
+  Text,
+  Input,
+  Box,
+  Button,
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import CookieLogo from "./components/CookieLogo";
 import Card from "./components/Card";
 
 function App() {
   const API__URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
-
   const [recipe, setRecipe] = useState([]);
+  const [search, setSearch] = useState("");
 
-  // const searchRecipe = async (Title) => {
-  //   const response = await fetch(`${API__URL}${Title}`);
-  //   const data = await response.json();
-  //  setRecipe(data.meals[0]);
-  // };
-
-  const searchRecipe = async (search) => {
+  const popularRecipe = async (search) => {
     const response = await fetch(`${API__URL}`);
     const data = await response.json();
     setRecipe(data.meals);
   };
 
-  useEffect(() => {
-    searchRecipe();
-  }, []);
+  const searchRecipe = async (search) => {
+    const response = await fetch(`${API__URL}${search}`);
+    const data = await response.json();
+    setRecipe(data.meals);
+  };
 
+  useEffect(() => {
+    popularRecipe();
+  }, []);
+  console.log(recipe);
   return (
     <Container
       maxW="1200px"
       display="flex"
       flexDirection="column"
+      gap="25px"
       flexWrap={"wrap"}
       padding="0"
     >
-      <Stack align={"center"}>
-        <Heading
+      <Stack
+        display="flex"
+        flexWrap="wrap"
+        flexDirection="row"
+        align="center"
+        padding={{ md: "0 15px", lg: "0 30px" }}
+        justify={{ base: "center", md: "space-between" }}
+        gap={{ base: "10px", lg: "25px" }}
+        mt="15px"
+      >
+        <Stack align={{ md: "flex-start", base: "center" }}>
+          <Heading
+            display="flex"
+            alignItems="center"
+            gap="15px"
+            textAlign="center"
+          >
+            {" "}
+            <CookieLogo />
+            Recipe Book
+          </Heading>
+          <Text>Recetas de todo tipo y para todo tipo de gustos</Text>
+        </Stack>
+
+        <Box
           display="flex"
-          alignItems="center"
-          gap="15px"
-          textAlign="center"
+          direction="row"
+          gap="10px"
+          alignSelf={"flex-start"}
+          width={{ base: "auto", md: "35%" }}
         >
-          {" "}
-          <CookieLogo />
-          Recipe Book
-        </Heading>
-        <Text>Recetas de todo tipo y para todo tipo de gustos</Text>
+          <Input
+            variant="outline"
+            type="text"
+            placeholder="Search your recipe"
+            textTransform={"capitalize"}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <Button colorScheme={"teal"} onClick={() => searchRecipe(search)}>
+            Search
+          </Button>
+        </Box>
       </Stack>
 
       <Stack
@@ -52,9 +92,10 @@ function App() {
         justify={{ base: "center" }}
         align="flex-start"
         gap="25px"
+        margin="0 0.5 rem"
       >
         {!recipe ? (
-          <Heading>Loading...</Heading>
+          <Heading></Heading>
         ) : (
           recipe?.map((element, index) => {
             return <Card props={element} key={element.idMeal} />;

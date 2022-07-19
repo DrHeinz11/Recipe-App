@@ -18,15 +18,14 @@ export default function Card({ props }) {
     <Stack
       key={props.idMeal}
       minH={{ lg: "565px", base: "400px" }}
+      maxW="355px"
       justifyContent={"space-between"}
-      margin="0 0.5rem"
-      marginInlineEnd="0.5 rem"
     >
       <Heading textTransform="capitalize">{props.strMeal}</Heading>
 
       <a
         target="_blank"
-        href={props.strSource}
+        href="https://cookpad.com/uy/recetas/116102-chivito-uruguayo"
         alt={`Cookpad-${props.strMeal}`}
       >
         {" "}
@@ -38,9 +37,9 @@ export default function Card({ props }) {
         />
       </a>
 
-      {<props className="strTags"></props> === "" ||
-      <props className="strTags"></props> === " " ||
-      <props className="strTags"></props> === "Unknown" ? (
+      {props.strTags === "" ||
+      props.strTags === " " ||
+      props.strTags === "Unknown" ? (
         ""
       ) : (
         <Text fontSize="xl" fontWeight="semibold" textTransform="capitalize">
