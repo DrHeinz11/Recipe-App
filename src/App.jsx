@@ -18,7 +18,6 @@ function App() {
     const response = await fetch(API__URL);
     const data = await response.json();
     setRecipe(data.meals);
-    // console.log(data.meals);
   };
 
   useEffect(() => {
