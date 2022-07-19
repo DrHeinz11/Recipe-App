@@ -14,8 +14,8 @@ function App() {
   //  setRecipe(data.meals[0]);
   // };
 
-  const searchRecipe = async () => {
-    const response = await fetch(API__URL);
+  const searchRecipe = async (search) => {
+    const response = await fetch(`${API__URL}`);
     const data = await response.json();
     setRecipe(data.meals);
   };
@@ -53,9 +53,13 @@ function App() {
         align="flex-start"
         gap="25px"
       >
-        {recipe?.map((element, index) => {
-          return <Card props={element} key={element.idMeal} />;
-        })}
+        {!recipe ? (
+          <Heading>Loading...</Heading>
+        ) : (
+          recipe?.map((element, index) => {
+            return <Card props={element} key={element.idMeal} />;
+          })
+        )}
       </Stack>
     </Container>
   );
