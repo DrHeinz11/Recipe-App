@@ -7,7 +7,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-export default function CopyButtonCard({ props }) {
+export default function CopyButtonCard({ props,space='space-between' }) {
   const { isOpen, onToggle } = useDisclosure();
   return (
     <Stack width="100%">
@@ -15,7 +15,7 @@ export default function CopyButtonCard({ props }) {
       <Collapse in={isOpen} animateOpacity>
         <Stack
           direction="row"
-          justify="space-between"
+          justify={space}
           gap={{ base: "10px", md: "15px", lg: "25px" }}
           p="40px"
           color="white"

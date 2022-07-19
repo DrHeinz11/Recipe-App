@@ -10,6 +10,7 @@ import {
 import { useState, useEffect } from "react";
 import CookieLogo from "./components/CookieLogo";
 import Card from "./components/Card";
+import CardIndividual from "./components/CardIndividual";
 
 function App() {
   const API__URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
@@ -46,10 +47,13 @@ function App() {
         flexWrap="wrap"
         flexDirection="row"
         align="center"
-        padding={{ md: "0 15px", lg: "0 30px" }}
+        position={"fixed"}
+        bg="white"
+        zIndex={"100"}
+        w="100%"
+        padding={{ md: "3.5px 15px", lg: "7.5px 30px" }}
         justify={{ base: "center", md: "space-between" }}
         gap={{ base: "10px", lg: "25px" }}
-        mt="15px"
       >
         <Stack align={{ md: "flex-start", base: "center" }}>
           <Heading
@@ -62,7 +66,6 @@ function App() {
             <CookieLogo />
             Recipe Book
           </Heading>
-          <Text>Recetas de todo tipo y para todo tipo de gustos</Text>
         </Stack>
 
         <Box
@@ -92,15 +95,15 @@ function App() {
         justify={{ base: "center" }}
         align="flex-start"
         gap="25px"
-        margin="0 0.5 rem"
+        margin="65px 0"
       >
-        {!recipe ? (
-          <Heading></Heading>
-        ) : (
-          recipe?.map((element, index) => {
-            return <Card props={element} key={element.idMeal} />;
-          })
-        )}
+        {recipe.length <= 5
+          ? recipe.map((element) => {
+              return <CardIndividual props={element} key={element.idMeal} />;
+            })
+          : recipe?.map((element) => {
+              return <Card props={element} key={element.idMeal} />;
+            })}
       </Stack>
     </Container>
   );
